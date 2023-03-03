@@ -2,6 +2,11 @@ class Portfolio extends React.Component {
     constructor(props) {
         super(props);
 
+        this.removeStock = this.removeStock.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+        this.handleFormChange = this.handleFormChange.bind(this);
+        this.addStock = this.addStock.bind(this);
+
         this.state = {
             portfolio: [
                 {
@@ -29,19 +34,15 @@ class Portfolio extends React.Component {
             }
         };
 
-        this.removeStock = this.removeStock.bind(this);
-        this.handleChange = this.handleChange.bind(this);
-        this.handleFormChange = this.handleFormChange.bind(this);
-        this.addStock = this.addStock.bind(this);
     }
 
     handleFormChange(event) {
         const { name, value } = event.target;
         const { portfolio, form } = this.state;
-
         form[name] = value;
         this.setState({ portfolio, form });
     }
+
     addStock(event) {
         event.preventDefault();
         const portfolio = this.state.portfolio.slice();
@@ -62,13 +63,13 @@ class Portfolio extends React.Component {
         const portfolio = this.state.portfolio.slice(); // shallow copy
         const { name, value } = event.target;
         portfolio[index][name] = value;
-        this.setState({ portfolio, form });
+        this.setState({ portfolio });
     }
 
     removeStock(index) {
         const portfolio = this.state.portfolio.slice(); // shallow copy
         portfolio.splice(index, 1); // remove value at index
-        this.setState({ portfolio, form });
+        this.setState({ portfolio });
     }
 
     render() {
@@ -76,7 +77,6 @@ class Portfolio extends React.Component {
         const portfolio_market_value = portfolio.reduce((sum, stock) => stock.shares_owned * stock.market_price + sum, 0);
         const portfolio_cost = portfolio.reduce((sum, stock) => stock.shares_owned * stock.cost_per_share + sum, 0);
         const portfolio_gain_loss = portfolio_market_value - portfolio_cost;
-
         return (
             <div className="container">
                 <h1 className="text-center my-4">Stock Portfolio</h1>
