@@ -60,16 +60,18 @@ class Portfolio extends React.Component {
     }
 
     handleChange(event, index) {
-        const portfolio = this.state.portfolio.slice(); // shallow copy
+        event.preventDefault();
+        const portfolio = this.state.portfolio.slice();
         const { name, value } = event.target;
         portfolio[index][name] = value;
         this.setState({ portfolio });
     }
 
     removeStock(index) {
-        const portfolio = this.state.portfolio.slice(); // shallow copy
+        const portfolio = this.state.portfolio.slice();
+        const { form } = this.state.form // shallow copy
         portfolio.splice(index, 1); // remove value at index
-        this.setState({ portfolio });
+        this.setState({ portfolio, form });
     }
 
     render() {
