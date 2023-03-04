@@ -36,12 +36,13 @@ class Portfolio extends React.Component {
 
   removeStock(index) {
     const portfolio = this.state.portfolio.slice();
+    portfolio.splice(index, 1);
 
     this.setState({ portfolio });
   }
 
   handleChange(event, index) {
-    const portfolio = this.state.portfolio.slice(); // shallow copy
+    const portfolio = this.state.portfolio.slice();
     const { name, value } = event.target;
 
     portfolio[index][name] = value;
@@ -70,7 +71,6 @@ class Portfolio extends React.Component {
         market_price: 0
       }
     });
-
   }
 
   render() {
@@ -110,7 +110,6 @@ class Portfolio extends React.Component {
 
                   const market_value = shares_owned * market_price;
                   const unrealized_gain_loss = market_value - shares_owned * cost_per_share;
-
 
                   return (
                     <tr key={index}>
